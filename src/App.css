@@ -3,7 +3,8 @@
 }
 *{
   color: azure;
-}
+} 
+
 .feature-items{
   color: #282c34;
 }
@@ -11,7 +12,6 @@ body {
   background-image: url('./bg.jpg'); 
   background-size: cover;
   background-attachment: fixed;
- 
 }
 .App-logo {
   height: 40vmin;

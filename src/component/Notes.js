@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import backgroundImage from '../bg.jpg';
 
 const Notes = (props) => {
-  const {showAlert} = props;
+  const { showAlert } = props;
   let navigate = useNavigate();
 
   const [show, setShow] = useState(false);
@@ -21,59 +21,59 @@ const Notes = (props) => {
   const handleShow = () => setShow(true);
   const ref = useRef(null);
   const refClose = useRef(null);
-  const [ note, setNote] = useState({etitle:"", edescription:"", etag:""});
+  const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
   const context = useContext(noteContext);
-  const { notes, getNotes,editNote } = context;
+  const { notes, getNotes, editNote } = context;
 
 
   useEffect(() => {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem("token")) {
       getNotes()
     }
-    else{
-       navigate("/login")
+    else {
+      navigate("/login")
     }
     // eslint-disable-next-line
   }, []);
 
   const updateNote = (currentNote) => {
-    
+
     ref.current.click();
-    setNote({id : currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag})
+    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
     //showAlert("Updated successfully", "success")
   };
 
-  const handleClick = (e)=>{ 
+  const handleClick = (e) => {
 
     refClose.current.click();
-    editNote(note.id, note.etitle,note.edescription, note.etag)
+    editNote(note.id, note.etitle, note.edescription, note.etag)
     showAlert("Updated successfully", "success")
   }
-  
-  
-  const onChange = (e)=>{
-      setNote({...note, [e.target.name]: e.target.value})
+
+
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value })
   }
 
   return (
     <div >
-      <AddNote showAlert={showAlert}/>
+      <AddNote showAlert={showAlert} />
       <Button className="d-none" ref={ref} variant="primary" onClick={handleShow}>
         button
-      </Button>
-      <Modal   style={{
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed",
-  }}show={show} onHide={handleClose}>
+      </Button> 
+      <Modal style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+      }} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title style={{color:"black"}}>Edit Note</Modal.Title>
+          <Modal.Title style={{ color: "black" }}>Edit Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}
           <Form className="my-3">
             <Form.Group className="mb-3" >
-              <Form.Label htmlFor="title" style={{color:"black"}}>Title</Form.Label>
+              <Form.Label htmlFor="title" style={{ color: "black" }}>Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter title"
@@ -85,7 +85,7 @@ const Notes = (props) => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="description" style={{color:"black"}}>Description</Form.Label>
+              <Form.Label htmlFor="description" style={{ color: "black" }}>Description</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter description"
@@ -96,41 +96,40 @@ const Notes = (props) => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="tag" style={{color:"black"}}>Tag</Form.Label>
+              <Form.Label htmlFor="tag" style={{ color: "black" }}>Tag</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Tag"
-                name="etag"           
+                name="etag"
                 id="etag"
                 onChange={onChange}
                 value={note.etag}
-                minLength={5} required 
+                minLength={5} required
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button ref ={refClose}variant="secondary" onClick={handleClose}>
+          <Button ref={refClose} variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleClick} variant="primary" disabled = {note.etitle.length<5 || note.edescription.length<5}>
+          <Button onClick={handleClick} variant="primary" disabled={note.etitle.length < 5 || note.edescription.length < 5}>
             Update Note
           </Button>
         </Modal.Footer>
       </Modal>
       <div className=" row my-3">
-        <h3 style={{color:"white"}}>Your Notes</h3> <div style={{color:"white"}} className ="container"> 
-        {notes.length === 0 && "There are no notes to display"}
-        </div>
-        {notes.map((note) => {
-          return (
-            <NoteItem key={note._id} updateNote={updateNote} showAlert = {showAlert} note={note} />
-          );
-        })}
+        <h3 style={{ color: "white" }}>Your Notes</h3> 
+      <div> {notes.length === 0 && 
+          "There are no notes to display"}
+          </div>
+         {notes?.length > 0 && notes.map((note) => (
+            <NoteItem key={note._id} updateNote={updateNote} showAlert={showAlert} note={note} />
+          ))
+        }
+       
       </div>
     </div>
   );
 };
-// 
-
 export default Notes;

@@ -26,9 +26,9 @@ let navigate = useNavigate();
     });
     const json = await response.json();
     console.log(json)
-    if(json.success){
+    if(!!json.success){
     //Save the authToken and redirect
-    localStorage.setItem('token',json.authToken)
+    localStorage.setItem('token',json.authtoken)
     navigate('/');
     props.showAlert("Account Created", "success")
     }
