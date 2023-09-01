@@ -26,10 +26,10 @@ function App() {
         />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home showAlert={showAlert} />} />
+            <Route path="/" element={<Home style={{color:"black"}} showAlert={showAlert} />} />
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login showAlert={showAlert}/>}  />
-            <Route path="/signup" element={<Signup showAlert={showAlert}/>}  />
+            <Route path="/login" element={<Login style={{color:"black"}} showAlert={showAlert}/>}  />
+            <Route path="/signup" element={<Signup style={{color:"black"}} showAlert={showAlert}/>}  />
           </Routes>
         </div>
       </BrowserRouter>

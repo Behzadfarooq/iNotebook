@@ -6,9 +6,11 @@ import AddNote from "./AddNote";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from '../bg.jpg';
 
 const Notes = (props) => {
   const {showAlert} = props;
@@ -35,6 +37,7 @@ const Notes = (props) => {
   }, []);
 
   const updateNote = (currentNote) => {
+    
     ref.current.click();
     setNote({id : currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag})
     //showAlert("Updated successfully", "success")
@@ -53,20 +56,24 @@ const Notes = (props) => {
   }
 
   return (
-    <div>
+    <div >
       <AddNote showAlert={showAlert}/>
       <Button className="d-none" ref={ref} variant="primary" onClick={handleShow}>
         button
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal   style={{
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
+  }}show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Note</Modal.Title>
+          <Modal.Title style={{color:"black"}}>Edit Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}
           <Form className="my-3">
             <Form.Group className="mb-3" >
-              <Form.Label htmlFor="title">Title</Form.Label>
+              <Form.Label htmlFor="title" style={{color:"black"}}>Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter title"
@@ -78,7 +85,7 @@ const Notes = (props) => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="description">Description</Form.Label>
+              <Form.Label htmlFor="description" style={{color:"black"}}>Description</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter description"
@@ -89,7 +96,7 @@ const Notes = (props) => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="tag">Tag</Form.Label>
+              <Form.Label htmlFor="tag" style={{color:"black"}}>Tag</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Tag"
@@ -112,7 +119,7 @@ const Notes = (props) => {
         </Modal.Footer>
       </Modal>
       <div className=" row my-3">
-        <h3>Your Notes</h3> <div className ="container"> 
+        <h3 style={{color:"white"}}>Your Notes</h3> <div style={{color:"white"}} className ="container"> 
         {notes.length === 0 && "There are no notes to display"}
         </div>
         {notes.map((note) => {
